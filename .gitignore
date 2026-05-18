@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local generated test output
+tmp/
+.temp/
+*.log
+
+# Project-local progress memory
+/Docs/
+
+# Python test caches in nested skill directories
+**/__pycache__/
+
+# Packaged archives
+*.zip
+*.tar.gz
