@@ -5,9 +5,7 @@ Docs/progress/
   index.md
   project_memory.md
   sessions/
-    2026/
-      2026-07/
-        20260707T101500+0800__docs__update-readme.md
+    20260707T101500+0800__docs__update-readme.md
   decisions.md
   todos.md
   environment.md

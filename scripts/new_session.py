@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""基于 templates/session-log.md 创建新的会话记录。"""
+"""创建新的项目进度会话记录。"""
 
 from __future__ import annotations
 
@@ -71,7 +71,7 @@ def create_session(args: argparse.Namespace) -> Path:
     sessions_root = progress_root / "sessions"
     timestamp = now_local()
     session_id = timestamp.strftime("%Y%m%dT%H%M%S%z") + "__" + slugify(args.task_type, 24) + "__" + slugify(args.title, 36)
-    session_dir = sessions_root / timestamp.strftime("%Y") / timestamp.strftime("%Y-%m")
+    session_dir = sessions_root
     session_dir.mkdir(parents=True, exist_ok=True)
     output_path = session_dir / f"{session_id}.md"
     if output_path.exists():

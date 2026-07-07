@@ -23,7 +23,7 @@ def run_script(name: str, *args: str, input_text: str | None = None) -> subproce
     )
 
 
-class ScriptSmokeTests(unittest.TestCase):
+class ScriptWorkflowTests(unittest.TestCase):
     def test_progress_tree_session_index_context_and_redaction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             project = Path(tmp)
@@ -51,6 +51,7 @@ class ScriptSmokeTests(unittest.TestCase):
             )
             session_path = Path(session_result.stdout.strip())
             self.assertTrue(session_path.exists())
+            self.assertEqual(session_path.parent, project / "Docs/progress/sessions")
             self.assertIn("开发检查会话", session_path.read_text(encoding="utf-8"))
 
             update_result = run_script("update_index.py", str(project))

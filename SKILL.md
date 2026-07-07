@@ -41,6 +41,8 @@ Docs/progress/
   environment.md
 ```
 
+会话记录默认直接放在 `Docs/progress/sessions/` 下，不新建年/月多层目录；如果项目已经有自己的进度目录结构，就沿用项目现状，不主动扩复杂。
+
 ## 语言规则
 
 - 中文是第一语言。标题、正文、说明、模板占位内容默认都写中文。
@@ -76,7 +78,7 @@ Docs/progress/
 1. 判断是否值得记录；默认短记录。
 2. 确认项目根目录，优先使用 Git 根目录。
 3. 检查或初始化 `Docs/progress/`。
-4. 用 `templates/session-log.md` 写一份短会话记录。
+4. 在 `Docs/progress/sessions/` 写一份短会话记录。
 5. 只在长期事实变化时更新：
    - `project_memory.md`
    - `decisions.md`
@@ -85,13 +87,45 @@ Docs/progress/
 6. 必要时更新 `index.md`，只加一行。
 7. 结束时在对话里明确告诉用户：改了什么、跑了什么、输出在哪里、还有什么没做。
 
-## 需要读取的文件
+## 会话记录模板
 
-- `templates/session-log.md`：默认短会话模板。
-- `references/redaction-policy.md`：涉及日志、命令输出、环境信息时读取。
-- `references/field-guide.md`：不知道该写什么时读取。
-- `references/maintenance-guide.md`：进度树变大或要收尾时读取。
-- `references/cross-device-guide.md`：涉及多设备路径、同步、挂载盘时读取。
+默认文件名：
+
+```text
+Docs/progress/sessions/YYYYMMDD_HHMM__短标题.md
+```
+
+默认正文：
+
+```markdown
+# 短标题
+
+## 用户要求
+
+用一句话概括用户要什么。
+
+## 改了什么
+
+- `路径`：说明改动和原因。
+
+## 命令与验证
+
+- `命令`：结果。没有运行就写清原因。
+
+## 结果
+
+- 当前状态、关键指标、输出路径。
+
+## 决策与风险
+
+- 只写会影响后续的决定、限制或风险。没有就写“无”。
+
+## 下一步
+
+1. 下一次接手先做什么。
+```
+
+可以保留简短 `frontmatter` 方便机器读取，但不要为了元数据把记录写复杂。涉及日志、命令输出、环境信息时必须先脱敏。
 
 ## 合格标准
 
