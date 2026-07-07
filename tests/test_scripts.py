@@ -39,7 +39,7 @@ class ScriptSmokeTests(unittest.TestCase):
                 "--task-type",
                 "code-change",
                 "--title",
-                "冒烟测试会话",
+                "开发检查会话",
                 "--agent",
                 "Codex",
                 "--device",
@@ -51,12 +51,12 @@ class ScriptSmokeTests(unittest.TestCase):
             )
             session_path = Path(session_result.stdout.strip())
             self.assertTrue(session_path.exists())
-            self.assertIn("冒烟测试会话", session_path.read_text(encoding="utf-8"))
+            self.assertIn("开发检查会话", session_path.read_text(encoding="utf-8"))
 
             update_result = run_script("update_index.py", str(project))
             self.assertTrue(Path(update_result.stdout.strip()).exists())
             index_text = (project / "Docs/progress/index.md").read_text(encoding="utf-8")
-            self.assertIn("冒烟测试会话", index_text)
+            self.assertIn("开发检查会话", index_text)
             self.assertIn("code-change", index_text)
 
             context_result = run_script("collect_context.py", str(project))
