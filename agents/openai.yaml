@@ -1,4 +1,4 @@
 interface:
   display_name: "Project Progress Memory Logger"
-  short_description: "Log project progress after each task"
-  default_prompt: "Use $project-progress-memory-logger to save this task as a structured project progress record under the active repository."
+  short_description: "Log concise project progress after a task"
+  default_prompt: "Use $project-progress-memory-logger to save this task as a concise project progress note under the active repository."

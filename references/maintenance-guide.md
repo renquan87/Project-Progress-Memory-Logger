@@ -6,8 +6,8 @@ Use this reference before finalizing a progress record and when the progress sys
 
 | File | Update When |
 | --- | --- |
-| `sessions/` | Every recorded task. |
-| `index.md` | Every new session log. |
+| `sessions/` | Every recorded task, but keep the record concise by default. |
+| `index.md` | Every new session log, one line only. |
 | `project_memory.md` | Durable project background, current state, constraints, or read-first notes changed. |
 | `decisions.md` | A technical, research, process, or direction decision affects future work. |
 | `todos.md` | A cross-session task is opened, changed, blocked, completed, or dropped. |
@@ -16,26 +16,26 @@ Use this reference before finalizing a progress record and when the progress sys
 ## Anti-Bloat Strategy
 
 - Keep `project_memory.md` short and current.
-- Move detailed evidence into session logs.
+- Keep session logs short too. A normal task should not need a 20-section report.
 - Keep `index.md` as links and one-line descriptions.
 - Archive or summarize old sessions by milestone when the session count grows.
 - Prefer tables for ongoing todos and decisions.
 - Avoid duplicating the same command output in multiple files.
+- Do not let the progress note become longer than the actual code or documentation change unless the task was mainly analysis.
 
 ## Completeness Checklist
 
 Before reporting completion to the user, verify:
 
 - The original user request is captured.
-- The agent's understanding and scope are captured.
 - Key files and artifacts are listed.
 - Commands and tool calls are summarized with results.
 - Tests, validation, and skipped checks are recorded.
 - Errors and fixes are recorded when relevant.
-- Decisions and todos are updated outside the session log when they affect future work.
-- Environment and cross-device notes are updated when paths or machines matter.
+- Decisions, todos, and environment files are updated only when they affect future work.
 - Sensitive content is redacted.
-- The future AI recovery summary gives a concrete first next action.
+- The next step is concrete.
+- The user has also been told in chat what changed; the progress note is not the only report.
 
 ## Periodic Stage Summary
 

@@ -19,7 +19,16 @@ This reference explains what to record in each progress document. Load it when a
 
 ## Required Narrative Sections
 
-Every session log should include the original request, agent understanding, execution plan, execution timeline, commands or tools, changed files or generated outputs, validation, final outcome, unfinished items, next steps, and future AI recovery summary.
+Every normal session log should stay concise and include only:
+
+- user request;
+- what changed;
+- commands/tests and results;
+- outputs or important paths;
+- decisions/risks if any;
+- next step.
+
+Use the old long handoff style only when the user explicitly asks for a full handoff, the task is unusually complex, or a future agent cannot continue safely from the concise form.
 
 ## Conditional Sections By Task Type
 
@@ -46,6 +55,7 @@ Every session log should include the original request, agent understanding, exec
 
 - Choose the writing language from the user's current context. For example, use Chinese for progress records when the user is working in Chinese.
 - Apply the chosen language consistently across the session log and any related `index.md`, `project_memory.md`, `decisions.md`, `todos.md`, or `environment.md` updates for the same task.
+- Translate section headings too. Do not leave English headings in a Chinese progress record unless they are machine-readable frontmatter keys or code identifiers.
 - Keep frontmatter keys, commands, paths, code identifiers, and faithful quotes in their original form when translation would reduce accuracy or machine readability.
 - Preserve concrete paths, filenames, commands, metrics, and decision context.
 - Summarize large outputs instead of copying logs wholesale.
@@ -53,3 +63,4 @@ Every session log should include the original request, agent understanding, exec
 - Put long-term work items in `todos.md`.
 - Put decisions that affect future direction in `decisions.md`.
 - Put machine-specific facts in `environment.md`.
+- Do not update `project_memory.md`, `decisions.md`, `todos.md`, or `environment.md` just to show activity. Update them only when durable facts changed.

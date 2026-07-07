@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
-`project-progress-memory-logger` is an AI Agent Skill that creates a project-local `Docs/progress/` handoff after an AI-assisted task. It records the user request, file changes, commands, tests, decisions, open questions, and next steps.
+`project-progress-memory-logger` is an AI Agent Skill that creates concise project-local `Docs/progress/` notes after an AI-assisted task. It records the user request, file changes, commands, tests, decisions, open questions, and next steps without turning routine work into a long transcript.
 
 It is built for Codex, Claude Code, Cursor, OpenCode, OpenClaw, and other assistants that can load `SKILL.md`.
 
@@ -23,7 +23,7 @@ Repository: [renquan87/Project-Progress-Memory-Logger](https://github.com/renqua
 
 AI agents are good at moving a task forward, but project memory often falls apart between sessions. The next agent sees a stale README, missing context, half-remembered decisions, and no record of which commands were actually run.
 
-This skill gives the agent a simple closing ritual: before the task ends, write the project record.
+This skill gives the agent a simple closing ritual: before the task ends, write the project record, but keep it short by default.
 
 It records:
 
@@ -50,7 +50,9 @@ Docs/progress/
 └── environment.md
 ```
 
-`sessions/` stores one detailed log per task. The other files keep the long-term project memory short and easy to scan.
+`sessions/` stores one concise log per task. The other files keep the long-term project memory short and easy to scan.
+
+The default session log keeps six sections: user request, what changed, commands and validation, result, decisions and risks, and next step. Use detailed handoffs only when the user asks for them or the task is complex enough to need them.
 
 ## Install
 

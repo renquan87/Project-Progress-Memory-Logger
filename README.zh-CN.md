@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
-`project-progress-memory-logger` 是一个 AI Agent Skill。它会在项目的 `Docs/progress/` 目录里记录一次任务中发生的事，包括用户需求、文件变更、运行命令、测试结果、决策、未解决问题和下一步。
+`project-progress-memory-logger` 是一个 AI Agent Skill。它会在项目的 `Docs/progress/` 目录里用简短记录保存任务中真正重要的事：用户需求、文件变更、运行命令、测试结果、决策、未解决问题和下一步。
 
 它适用于 Codex、Claude Code、Cursor、OpenCode、OpenClaw，以及其他能加载 `SKILL.md` 的 AI 编程助手。
 
@@ -23,7 +23,7 @@
 
 AI Agent 可以推进任务，但项目记忆经常在会话之间断掉。下一次接手时，Agent 看到的是过期 README、缺失上下文、零散决策和不完整命令记录。
 
-这个 skill 给 Agent 加了一道收尾动作：任务结束前，把项目记录写清楚。
+这个 skill 给 Agent 加了一道收尾动作：任务结束前，把项目记录写清楚，但不要写成流水账或长篇报告。
 
 它会记录：
 
@@ -50,7 +50,9 @@ Docs/progress/
 └── environment.md
 ```
 
-`sessions/` 里是一事一记的详细记录。其他文件负责保存长期项目记忆，保持短、清楚、方便扫读。
+`sessions/` 里是一事一记的简短记录。其他文件负责保存长期项目记忆，保持短、清楚、方便扫读。
+
+默认 session 记录只保留 6 类信息：用户要求、改了什么、命令与验证、结果、决策与风险、下一步。只有用户明确要求完整 handoff，或任务确实复杂到需要交接，才写详细记录。
 
 ## 安装
 
