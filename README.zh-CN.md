@@ -1,46 +1,54 @@
-# 项目进度记忆
+# Project Progress Memory Logger
 
-让 AI 代理用中文、短记录保存项目进度。
+### 让 AI Agent 记录项目里真正发生过的事
 
-`project-progress-memory-logger` 是一个 AI 代理技能。它的作用不是写长篇复盘，而是在项目的 `Docs/progress/` 里保存下一次继续工作真正需要的信息。
+<p>
+  <img src="https://img.shields.io/badge/Codex-412991?style=flat-square&logo=openai&logoColor=white" alt="Codex">
+  <img src="https://img.shields.io/badge/Claude_Code-black?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code">
+  <img src="https://img.shields.io/badge/Cursor-000?style=flat-square&logo=cursor&logoColor=white" alt="Cursor">
+  <img src="https://img.shields.io/badge/OpenCode-00D4AA?style=flat-square" alt="OpenCode">
+  <img src="https://img.shields.io/badge/OpenClaw-FF6B35?style=flat-square" alt="OpenClaw">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
+</p>
 
-仓库地址：`https://github.com/renquan87/Project-Progress-Memory-Logger`
+`project-progress-memory-logger` 是一个 AI Agent Skill，用于在 AI 辅助完成项目任务后，在当前项目内生成 `Docs/progress/` 进度记录。记录内容包括用户需求、文件变更、运行命令、测试结果、关键决策、未完成事项和下一步。
 
-## 解决什么问题
+它适用于 Codex、Claude Code、Cursor、OpenCode、OpenClaw，以及其他能加载 `SKILL.md` 的 AI 编程助手。
 
-新开对话时，AI 经常不知道上次做了什么、文件改到哪里、下一步该做什么。这个技能只解决这件事：
+仓库地址：[renquan87/Project-Progress-Memory-Logger](https://github.com/renquan87/Project-Progress-Memory-Logger)
 
-- 已经做了什么；
-- 关键文件在哪里；
-- 跑过什么命令/测试；
-- 产物和结果在哪里；
-- 下一步先做什么；
-- 有什么风险或限制。
+## 功能
 
-## 默认输出
+AI Agent 可以推进任务，但跨会话接手时常缺少项目现场：README 可能过期，决策分散在聊天里，命令和测试结果没有固定位置保存。
+
+这个 Skill 提供一个项目内进度记录流程，让下一次接手的 AI Agent 能快速看到：
+
+- 用户提出的需求；
+- Agent 对任务范围的理解；
+- 仓库中发生的文件变更；
+- 执行过的命令和工具；
+- 通过或跳过的测试检查；
+- 已做出的决策；
+- 仍未完成的事项；
+- 下一次接手时优先阅读的文件和优先执行的动作。
+
+## 输出结构
+
+默认写入目标项目：
 
 ```text
 Docs/progress/
-  index.md
-  project_memory.md
-  sessions/
-  decisions.md
-  todos.md
-  environment.md
+├── index.md
+├── project_memory.md
+├── sessions/
+├── decisions.md
+├── todos.md
+└── environment.md
 ```
 
-## 默认记录格式
+`sessions/` 保存单次任务记录。其他文件保存长期项目记忆、决策、待办和环境信息。
 
-普通会话记录只写六段：
-
-1. 用户要求；
-2. 改了什么；
-3. 命令与验证；
-4. 结果；
-5. 决策与风险；
-6. 下一步。
-
-默认 20-60 行。只有用户明确要求完整交接，或任务确实复杂，才写长记录。
+默认记录保持简洁；任务复杂或用户要求完整交接时，可以写更详细的交接记录。
 
 ## 安装
 
@@ -48,25 +56,45 @@ Docs/progress/
 npx skills add renquan87/Project-Progress-Memory-Logger
 ```
 
+安装后，在一次项目任务结束时让 Agent 记录进展。
+
 ## 触发示例
+
+项目任务结束，或用户说出这些话时使用：
 
 ```text
 记录一下
 保存上下文
+写入项目日志
 更新项目记忆
-写项目日志
 收尾
 交接
 ```
 
-## 设计原则
+英文触发词如 `record this`、`save context`、`write project log` 也可以使用。
 
-- 中文优先；
-- 短记录优先；
-- 不写思考过程；
-- 不写聊天流水账；
-- 不把一次性冒烟测试写成正式结论；
-- 不用项目记忆替代对用户的实时汇报。
+适合代码修改、调试、文档、实验、部署、调研记录和计划收尾。
+
+## 反馈
+
+使用过程中如果有建议、遇到问题，或觉得哪里不好用，欢迎到 [GitHub Issues](https://github.com/renquan87/Project-Progress-Memory-Logger/issues) 提交。
+
+## 仓库结构
+
+```text
+.
+├── README.md
+├── README.zh-CN.md
+├── LICENSE
+├── CHANGELOG.md
+├── SKILL.md
+├── agents/
+├── examples/
+├── references/
+├── scripts/
+├── templates/
+└── tests/
+```
 
 ## 许可证
 
