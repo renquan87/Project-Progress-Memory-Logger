@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run validation checks for this skill repository."""
+"""运行本技能仓库的验证检查。"""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ def run(command: list[str], cwd: Path = REPO_ROOT) -> None:
 def main() -> int:
     skill_file = REPO_ROOT / "SKILL.md"
     if not skill_file.exists():
-        raise SystemExit("SKILL.md is missing from the repository root.")
+        raise SystemExit("仓库根目录缺少 SKILL.md。")
 
     scripts = sorted((REPO_ROOT / "scripts").glob("*.py"))
     if scripts:
@@ -27,7 +27,7 @@ def main() -> int:
 
     run([sys.executable, "-m", "unittest", "discover", "-s", str(REPO_ROOT / "tests"), "-p", "test_*.py"])
 
-    print("\nAll skill checks passed.")
+    print("\n所有技能检查已通过。")
     return 0
 
 

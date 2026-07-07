@@ -1,14 +1,7 @@
-# Decisions
+# 决策
 
-Record decisions that affect future work. Keep routine implementation details in session logs.
+只记录会影响后续工作的决定。
 
-| Date | ID | Decision | Reason | Alternatives | Impact | Status | Session |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| TBD | DEC-0001 | TBD | TBD | TBD | TBD | proposed / accepted / reversed | TBD |
-
-## Decision Status Values
-
-- `proposed`: discussed but not yet adopted.
-- `accepted`: current project direction.
-- `reversed`: superseded by a later decision.
-- `deprecated`: still documented for history but no longer recommended.
+| 日期 | 决策 | 影响 |
+| --- | --- | --- |
+| 待填 | 待填 | 待填 |

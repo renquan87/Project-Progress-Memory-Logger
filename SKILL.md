@@ -1,30 +1,37 @@
 ---
 name: project-progress-memory-logger
-description: Use this skill when the user asks to record progress, save context, update project memory, write a project log, capture a handoff, or when a completed task changed project state worth remembering. It writes concise project-local Docs/progress notes: what changed, commands/tests, outputs, decisions, next steps, and any risks. Default to short localized records, not verbose process transcripts.
+description: 当用户要求记录进度、保存上下文、更新项目记忆、写项目日志、收尾、交接，或一次任务产生了值得下次继续使用的项目状态时使用。本技能在项目内写入简短中文进度记忆：做了什么、改了哪些文件、跑了什么命令/测试、产物在哪里、下一步做什么、还有什么风险。默认短记录，禁止写成长篇过程复盘。
 metadata:
-  short-description: Log project progress after each task
+  short-description: 简短记录项目进度
 ---
 
-# Project Progress Memory Logger
+# 项目进度记忆
 
-## Purpose
+## 目标
 
-Use this skill to preserve durable, project-local memory after AI-assisted work. The record should let a future AI agent or human maintainer recover the task context quickly. It is not a transcript, not a full chain-of-thought log, and not a substitute for telling the user what happened in the conversation.
+把一次任务中真正有用的项目状态保存下来，让下一次新对话能快速恢复上下文：知道已经做了什么、结果在哪里、接下来该做什么。
 
-## Trigger Conditions
+这不是聊天记录、不是思考过程、不是日报，也不能替代在对话里实时告诉用户做了什么。
 
-Use this skill when any of these are true:
+## 什么时候使用
 
-- The user asks to record the task, write a project log, save context, update project memory, create a handoff, or says phrases such as "记录一下", "保存上下文", "写入项目日志", "更新项目记忆", or "收尾".
-- A code, documentation, experiment, paper, planning, debugging, deployment, data, or environment task has been completed and produced state worth remembering.
-- The task produced durable project state: code changes, commands/tests, experiment metrics, generated reports, decisions, todos, environment changes, or cross-device notes.
-- The user wants the conversation to become long-term project memory.
+使用场景：
 
-Skip when the user explicitly says not to record, the interaction was a simple standalone Q&A with no project-state change, the record would add more noise than value, safe redaction is impossible, or no project root can be confirmed.
+- 用户说“记录一下”“保存上下文”“更新项目记忆”“写项目日志”“收尾”“交接”。
+- 代码、文档、实验、调试、部署、数据、环境等任务已经产生了后续会用到的状态。
+- 任务产生了重要命令、测试结果、实验指标、决策、待办、环境路径或跨设备信息。
 
-## Default Output System
+跳过场景：
 
-Create or update this tree in the target project:
+- 只是普通问答，没有项目状态变化。
+- 记录会比实际改动更复杂、更碍事。
+- 用户明确说不要记录。
+- 无法安全脱敏。
+- 找不到项目根目录。
+
+## 默认输出
+
+默认写到目标项目：
 
 ```text
 Docs/progress/
@@ -36,58 +43,66 @@ Docs/progress/
   environment.md
 ```
 
-Use `Docs/progress/` by default. If the user project uses another docs root, such as `docs/progress/`, adapt to that root and record the choice in `environment.md`.
+## 语言规则
 
-## Language Selection
+- 默认跟随用户语言。
+- 用户用中文时，所有说明正文和标题都写中文。
+- `frontmatter` 键、命令、路径、文件名、代码标识符可以保留原样。
+- 不要在中文记录里留下英文模板标题。
 
-Choose the language for `Docs/progress/` records from the user's context instead of defaulting to English:
+## 简化规则
 
-- Use the language of the user's current request for new session records and related updates.
-- If the current request mixes languages, use the language that carries the task instructions, unless the user explicitly asks for another language.
-- When updating an existing progress file, keep the existing file's language if the update is small; switch only when creating a new file or when the user context clearly asks for a different language.
-- Keep frontmatter keys, file names, code identifiers, commands, paths, and quoted source text unchanged when they need to stay machine-readable or faithful to the source.
-- Apply the same language choice consistently across `sessions/`, `index.md`, `project_memory.md`, `decisions.md`, `todos.md`, and `environment.md` updates for the same task.
-- Section headings should also use the chosen language. For Chinese users, write Chinese headings by default.
+默认写短记录。普通会话记录控制在 20-60 行。
 
-## Brevity Rules
+必须避免：
 
-Default to a concise record. The usual session log should be 20-60 lines, not a full report.
+- 不写逐步流水账。
+- 不写内部思考过程。
+- 不复制长命令输出。
+- 不为了显得完整而更新所有进度文件。
+- 不让记录文档比实际改动还复杂。
 
-- Do not write a step-by-step transcript.
-- Do not include internal reasoning, "what I thought", or tool-call trivia.
-- Do not duplicate long command output. Keep the command and the result.
-- Do not update every progress file by habit. Update only files whose long-term facts changed.
-- Use a detailed handoff only when the user asks for it, the task is complex, or another agent truly cannot continue without detail.
-- Always tell the user in the chat what was changed, what was run, and where outputs are. Project memory is supplementary, not a replacement for real-time reporting.
+只记录六件事：
 
-## Standard Workflow
+1. 用户要什么；
+2. 改了什么；
+3. 跑了什么命令/测试，结果如何；
+4. 产物和关键结果在哪里；
+5. 有什么会影响后续的决策或风险；
+6. 下一步做什么。
 
-1. Decide whether the task needs a progress record and whether it should be brief or detailed. Use brief by default.
-2. Confirm the project root. Prefer the Git root; otherwise use the user-specified directory or a directory containing project markers such as `README.md`, `AGENTS.md`, `CLAUDE.md`, `pyproject.toml`, `package.json`, or `Docs/`.
-3. Inspect or initialize `Docs/progress/`. Use `scripts/init_progress.py` when available.
-4. Collect only high-signal facts: user request, changed files, commands/tests and results, outputs, decisions, next steps, risks.
-5. Redact secrets and sensitive information before writing. Follow `references/redaction-policy.md`.
-6. Create one concise session record under `Docs/progress/sessions/` using `templates/session-log.md`.
-7. Update `index.md`, `project_memory.md`, `decisions.md`, `todos.md`, or `environment.md` only when the current task changes durable facts in those files.
-8. Run `scripts/update_index.py` when available, then do a quick anti-bloat check.
-9. Tell the user in the chat which files were created or updated, what commands/tests ran, and which items remain open.
+只有用户明确要完整交接，或任务确实复杂到没有详细交接会断档，才写长记录。
 
-## What To Load When Needed
+## 工作流程
 
-- `templates/session-log.md` for a concise single-task record.
-- `templates/index.md`, `templates/project-memory.md`, `templates/decisions.md`, `templates/todos.md`, and `templates/environment.md` when initializing the progress tree.
-- `references/field-guide.md` for field meanings and conditional sections.
-- `references/redaction-policy.md` before writing commands, credentials-adjacent text, logs, or environment details.
-- `references/cross-device-guide.md` for laptop/server/lab-machine workflows.
-- `references/maintenance-guide.md` before finalizing and updating indexes.
+1. 判断是否值得记录；默认短记录。
+2. 确认项目根目录，优先使用 Git 根目录。
+3. 检查或初始化 `Docs/progress/`。
+4. 用 `templates/session-log.md` 写一份短会话记录。
+5. 只在长期事实变化时更新：
+   - `project_memory.md`
+   - `decisions.md`
+   - `todos.md`
+   - `environment.md`
+6. 必要时更新 `index.md`，只加一行。
+7. 结束时在对话里明确告诉用户：改了什么、跑了什么、输出在哪里、还有什么没做。
 
-## Quality Bar
+## 需要读取的文件
 
-A good progress record answers these questions without the original chat:
+- `templates/session-log.md`：默认短会话模板。
+- `references/redaction-policy.md`：涉及日志、命令输出、环境信息时读取。
+- `references/field-guide.md`：不知道该写什么时读取。
+- `references/maintenance-guide.md`：进度树变大或要收尾时读取。
+- `references/cross-device-guide.md`：涉及多设备路径、同步、挂载盘时读取。
 
-- What did the user ask for?
-- What changed?
-- What commands/tests ran and what happened?
-- Where are the important outputs?
-- What decisions or durable environment facts changed?
-- What remains open and what should the next session do first?
+## 合格标准
+
+一条好的记录应该让下次新对话快速知道：
+
+- 已经完成什么；
+- 关键文件和产物在哪里；
+- 哪些命令/测试跑过；
+- 哪些结论只是临时冒烟测试，哪些是稳定决策；
+- 下一步先做什么。
+
+如果看完记录还要翻长篇聊天才能继续，说明记录失败。

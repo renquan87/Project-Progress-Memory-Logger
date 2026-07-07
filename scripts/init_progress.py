@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Initialize a project-local Docs/progress memory tree."""
+"""初始化项目内的 Docs/progress 进度记忆树。"""
 
 from __future__ import annotations
 
@@ -78,16 +78,16 @@ def init_progress(project_root: Path, progress_root: str, force: bool = False) -
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("project_root", help="Target project root.")
+    parser.add_argument("project_root", help="目标项目根目录。")
     parser.add_argument(
         "--progress-root",
         default="Docs/progress",
-        help="Progress directory relative to project root or absolute path. Default: Docs/progress",
+        help="进度目录，可以是相对项目根目录的路径，也可以是绝对路径。默认：Docs/progress",
     )
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Overwrite existing core progress files. Sessions directory is never deleted.",
+        help="覆盖已有核心进度文件。sessions 目录永不删除。",
     )
     return parser
 
@@ -96,12 +96,12 @@ def main() -> int:
     args = build_parser().parse_args()
     project_root = Path(args.project_root)
     if not project_root.exists():
-        raise SystemExit(f"Project root does not exist: {project_root}")
+        raise SystemExit(f"项目根目录不存在：{project_root}")
     if not project_root.is_dir():
-        raise SystemExit(f"Project root is not a directory: {project_root}")
+        raise SystemExit(f"项目根目录不是目录：{project_root}")
 
     created = init_progress(project_root, args.progress_root, force=args.force)
-    print("Initialized progress tree:")
+    print("已初始化进度树：")
     for path in created:
         print(os.fspath(path))
     return 0

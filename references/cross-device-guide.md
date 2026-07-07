@@ -1,42 +1,25 @@
-# Cross-Device Guide
+# 跨设备记录指南
 
-Use this reference when work spans laptops, lab machines, servers, cloud instances, deployment targets, or removable storage.
+涉及多台机器、挂载盘、外部硬盘或远程服务器时使用。
 
-## Device Record Fields
+只记录继续任务必须知道的信息：
 
-| Field | Meaning |
-| --- | --- |
-| Device alias | Short stable name, such as `local-laptop`, `lab-4090`, `train-server`, or `prod-vm`. |
-| Role | Editing, training, evaluation, deployment, data storage, visualization, or backup. |
-| Hardware | CPU/GPU/RAM details when relevant. |
-| OS / runtime | Operating system, CUDA, Python, Node, Docker, Conda, or package manager. |
-| Project path | Root path on that device. |
-| Data paths | Dataset, cache, checkpoint, output, and log locations. |
-| Sync status | What has been copied, committed, pushed, pulled, or still missing. |
-| Unknowns | Items that must be confirmed before running commands. |
+- 当前机器名或角色；
+- 项目路径；
+- 数据集路径；
+- 权重路径；
+- 大输出路径；
+- 哪些路径是软链接；
+- 哪些内容已经同步，哪些没有。
 
-## Cross-Device Handoff Pattern
+不要写长篇机器介绍。不要记录私钥、令牌、密码。
 
-When a task must continue on another machine, record:
+推荐格式：
 
-1. Current device and target device.
-2. Files changed locally.
-3. Git branch and commit or uncommitted change state.
-4. Artifacts that exist outside Git.
-5. Data or checkpoints required on the target machine.
-6. Exact command to run next.
-7. Expected output path and validation criteria.
-8. Items the future agent must confirm before execution.
-
-## Recommended Device Aliases
-
-Use stable aliases rather than one-off descriptions:
-
-- `local-laptop`
-- `lab-workstation`
-- `training-server`
-- `deployment-server`
-- `cloud-runner`
-- `external-storage`
-
-If the user provides a preferred alias, keep using it.
+```text
+- 当前机器：lab-wsl2
+- 项目：/data/projects/...
+- 数据：local_resources/datasets/... -> /mnt/d/...
+- 大输出：/mnt/f/...
+- 状态：已验证可读 / 未同步 / 需要重新挂载
+```

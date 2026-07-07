@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a new session log from templates/session-log.md."""
+"""基于 templates/session-log.md 创建新的会话记录。"""
 
 from __future__ import annotations
 
@@ -75,7 +75,7 @@ def create_session(args: argparse.Namespace) -> Path:
     session_dir.mkdir(parents=True, exist_ok=True)
     output_path = session_dir / f"{session_id}.md"
     if output_path.exists():
-        raise SystemExit(f"Session file already exists: {output_path}")
+        raise SystemExit(f"会话记录文件已存在：{output_path}")
 
     branch = run_git(project_root, ["branch", "--show-current"])
     commit = run_git(project_root, ["rev-parse", "--short", "HEAD"])
@@ -102,14 +102,14 @@ def create_session(args: argparse.Namespace) -> Path:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("project_root", help="Target project root.")
-    parser.add_argument("--progress-root", default="Docs/progress", help="Progress root. Default: Docs/progress")
-    parser.add_argument("--task-type", required=True, help="Task type, for example code-change, docs, experiment, planning.")
-    parser.add_argument("--title", required=True, help="Human-readable session title.")
-    parser.add_argument("--agent", default="unknown-agent", help="AI agent name.")
-    parser.add_argument("--device", default=os.uname().nodename if hasattr(os, "uname") else "unknown-device", help="Device alias.")
-    parser.add_argument("--operator", default="unknown-operator", help="Human operator or project owner.")
-    parser.add_argument("--status", default="draft", choices=["draft", "completed", "partial", "blocked", "abandoned"], help="Initial session status.")
+    parser.add_argument("project_root", help="目标项目根目录。")
+    parser.add_argument("--progress-root", default="Docs/progress", help="进度根目录。默认：Docs/progress")
+    parser.add_argument("--task-type", required=True, help="任务类型，例如 code-change、docs、experiment、planning。")
+    parser.add_argument("--title", required=True, help="会话记录标题。")
+    parser.add_argument("--agent", default="unknown-agent", help="AI 代理名称。")
+    parser.add_argument("--device", default=os.uname().nodename if hasattr(os, "uname") else "unknown-device", help="机器别名。")
+    parser.add_argument("--operator", default="unknown-operator", help="用户或项目负责人。")
+    parser.add_argument("--status", default="draft", choices=["draft", "completed", "partial", "blocked", "abandoned"], help="初始状态。")
     return parser
 
 
@@ -117,7 +117,7 @@ def main() -> int:
     args = build_parser().parse_args()
     project_root = Path(args.project_root)
     if not project_root.exists() or not project_root.is_dir():
-        raise SystemExit(f"Project root is not a directory: {project_root}")
+        raise SystemExit(f"项目根目录不是目录：{project_root}")
     output_path = create_session(args)
     print(output_path)
     return 0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect safe project, Git, and environment context as JSON."""
+"""收集可安全记录的项目、Git 和环境上下文，输出 JSON。"""
 
 from __future__ import annotations
 
@@ -117,7 +117,7 @@ def collect(project_root: Path) -> dict[str, Any]:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("project_root", help="Target project root.")
+    parser.add_argument("project_root", help="目标项目根目录。")
     return parser
 
 
@@ -125,7 +125,7 @@ def main() -> int:
     args = build_parser().parse_args()
     project_root = Path(args.project_root)
     if not project_root.exists() or not project_root.is_dir():
-        raise SystemExit(f"Project root is not a directory: {project_root}")
+        raise SystemExit(f"项目根目录不是目录：{project_root}")
     print(json.dumps(collect(project_root), ensure_ascii=False, indent=2))
     return 0
 

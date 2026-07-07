@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Redact common secret patterns from text."""
+"""从文本中脱敏常见凭据。"""
 
 from __future__ import annotations
 
@@ -44,8 +44,8 @@ def redact(text: str) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("input", nargs="?", help="Optional input file. Reads stdin when omitted.")
-    parser.add_argument("-o", "--output", help="Optional output file. Writes stdout when omitted.")
+    parser.add_argument("input", nargs="?", help="可选输入文件。不提供时读取标准输入。")
+    parser.add_argument("-o", "--output", help="可选输出文件。不提供时写入标准输出。")
     return parser
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Update Docs/progress/index.md from session log frontmatter."""
+"""根据会话记录的 frontmatter 更新 Docs/progress/index.md。"""
 
 from __future__ import annotations
 
@@ -48,10 +48,10 @@ def session_rows(progress_root: Path, limit: int) -> list[str]:
 
 def default_index() -> str:
     return (
-        "# Project Progress Index\n\n"
-        "## Latest Sessions\n\n"
+        "# 项目进度索引\n\n"
+        "## 最新记录\n\n"
         f"{START}\n"
-        "| Date | Session | Type | Status | Agent | Device |\n"
+        "| 日期 | 记录 | 类型 | 状态 | 代理 | 机器 |\n"
         "| --- | --- | --- | --- | --- | --- |\n"
         f"{END}\n"
     )
@@ -69,7 +69,7 @@ def update_index(progress_root: Path, limit: int) -> Path:
     table = "\n".join(
         [
             START,
-            "| Date | Session | Type | Status | Agent | Device |",
+            "| 日期 | 记录 | 类型 | 状态 | 代理 | 机器 |",
             "| --- | --- | --- | --- | --- | --- |",
             *rows,
             END,
@@ -80,7 +80,7 @@ def update_index(progress_root: Path, limit: int) -> Path:
         pattern = re.compile(re.escape(START) + r".*?" + re.escape(END), flags=re.DOTALL)
         text = pattern.sub(table, text)
     else:
-        text = text.rstrip() + "\n\n## Latest Sessions\n\n" + table + "\n"
+        text = text.rstrip() + "\n\n## 最新记录\n\n" + table + "\n"
 
     index_path.write_text(text.rstrip() + "\n", encoding="utf-8", newline="\n")
     return index_path
@@ -95,9 +95,9 @@ def resolve_progress_root(project_root: Path, progress_root: str) -> Path:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("project_root", help="Target project root.")
-    parser.add_argument("--progress-root", default="Docs/progress", help="Progress root. Default: Docs/progress")
-    parser.add_argument("--limit", type=int, default=50, help="Maximum latest sessions to list. Default: 50")
+    parser.add_argument("project_root", help="目标项目根目录。")
+    parser.add_argument("--progress-root", default="Docs/progress", help="进度根目录。默认：Docs/progress")
+    parser.add_argument("--limit", type=int, default=50, help="最新记录最多列出多少条。默认：50")
     return parser
 
 

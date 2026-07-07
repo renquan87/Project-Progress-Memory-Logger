@@ -1,32 +1,14 @@
-# Project Progress Index
+# 项目进度索引
 
-This file is the entry point for project progress records. Keep it short and link to detailed session logs rather than duplicating them.
+只放当前阶段最有用的入口，不做长目录。
 
-## Project
+## 当前必读
 
-- **Project name:** {{PROJECT_NAME}}
-- **Progress root:** `{{PROGRESS_ROOT}}`
-- **Initialized:** {{TIMESTAMP}}
+- 待填：当前目标文档或入口文档。
 
-## Start Here
-
-1. Read `project_memory.md` for long-term context and current state.
-2. Read the latest session records below.
-3. Check `todos.md` for active tasks.
-4. Check `environment.md` before running code on a different machine.
-5. Check `decisions.md` before changing established direction.
-
-## Latest Sessions
+## 最新记录
 
 <!-- sessions:start -->
-| Date | Session | Type | Status | Agent | Device |
+| 日期 | 记录 | 类型 | 状态 | 代理 | 机器 |
 | --- | --- | --- | --- | --- | --- |
 <!-- sessions:end -->
-
-## Stage Summaries
-
-Add links to milestone or phase summaries when the session list becomes long.
-
-| Date | Summary | Scope |
-| --- | --- | --- |
-| TBD | TBD | TBD |

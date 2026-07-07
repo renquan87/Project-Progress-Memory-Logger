@@ -1,35 +1,17 @@
-# Environment
+# 环境
 
-Record machines, paths, runtime environments, datasets, checkpoints, deployment targets, and cross-device sync notes.
+只记录继续任务必须知道的环境事实。
 
-## Current Known Devices
+## 当前机器
 
-| Device Alias | Role | OS / Hardware | Project Path | Data / Artifact Paths | Notes |
-| --- | --- | --- | --- | --- | --- |
-| local | default editing environment | TBD | `{{PROJECT_ROOT}}` | TBD | Created {{TIMESTAMP}} |
+- 待填：机器名、系统、GPU/CPU 如有必要。
 
-## Environment Variables And Config
+## 关键路径
 
-Do not record raw secrets. Record variable names, config file locations, or redacted values when useful.
-
-| Name / File | Purpose | Safe Value / Notes |
+| 路径 | 用途 | 状态 |
 | --- | --- | --- |
-| TBD | TBD | TBD |
+| 待填 | 待填 | 待填 |
 
-## Runtime / Toolchain
+## 环境备注
 
-| Component | Version / Source | Notes |
-| --- | --- | --- |
-| Python | TBD | TBD |
-| Node | TBD | TBD |
-| CUDA / GPU | TBD | TBD |
-
-## Cross-Device Sync Notes
-
-| Date | From | To | What Must Sync | Status | Notes |
-| --- | --- | --- | --- | --- | --- |
-| TBD | TBD | TBD | TBD | TBD | TBD |
-
-## Unknowns To Confirm Before Running Code
-
-- TBD
+- 待填：conda 环境、版本坑、挂载盘注意事项。

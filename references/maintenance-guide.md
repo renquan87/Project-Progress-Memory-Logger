@@ -1,49 +1,34 @@
-# Maintenance Guide
+# 维护指南
 
-Use this reference before finalizing a progress record and when the progress system becomes large.
+## 更新规则
 
-## Update Policy
-
-| File | Update When |
+| 文件 | 什么时候更新 |
 | --- | --- |
-| `sessions/` | Every recorded task, but keep the record concise by default. |
-| `index.md` | Every new session log, one line only. |
-| `project_memory.md` | Durable project background, current state, constraints, or read-first notes changed. |
-| `decisions.md` | A technical, research, process, or direction decision affects future work. |
-| `todos.md` | A cross-session task is opened, changed, blocked, completed, or dropped. |
-| `environment.md` | A device, path, dataset, checkpoint, deployment target, or runtime changes. |
+| `sessions/` | 值得记录的任务完成后，写短记录 |
+| `index.md` | 新增会话记录时，只加一行 |
+| `project_memory.md` | 长期方向、当前状态、关键入口变化 |
+| `decisions.md` | 影响后续工作的决定变化 |
+| `todos.md` | 跨会话待办变化 |
+| `environment.md` | 机器、路径、数据、权重、运行环境变化 |
 
-## Anti-Bloat Strategy
+## 防膨胀规则
 
-- Keep `project_memory.md` short and current.
-- Keep session logs short too. A normal task should not need a 20-section report.
-- Keep `index.md` as links and one-line descriptions.
-- Archive or summarize old sessions by milestone when the session count grows.
-- Prefer tables for ongoing todos and decisions.
-- Avoid duplicating the same command output in multiple files.
-- Do not let the progress note become longer than the actual code or documentation change unless the task was mainly analysis.
+- 会话记录默认 20-60 行。
+- 记录不能比实际改动还复杂，除非任务本身是分析。
+- 不复制命令长输出。
+- 不记录内部思考过程。
+- 不重复同一事实到多个文件。
+- 不把一次性冒烟测试写成正式结论。
+- 旧记录太多时写阶段摘要，不继续堆长日志。
 
-## Completeness Checklist
+## 收尾检查
 
-Before reporting completion to the user, verify:
+结束前只确认：
 
-- The original user request is captured.
-- Key files and artifacts are listed.
-- Commands and tool calls are summarized with results.
-- Tests, validation, and skipped checks are recorded.
-- Errors and fixes are recorded when relevant.
-- Decisions, todos, and environment files are updated only when they affect future work.
-- Sensitive content is redacted.
-- The next step is concrete.
-- The user has also been told in chat what changed; the progress note is not the only report.
-
-## Periodic Stage Summary
-
-Create a stage summary when one of these happens:
-
-- A milestone is completed.
-- A paper, release, experiment batch, or deployment phase ends.
-- More than 20 session logs accumulate in one phase.
-- The project direction changes substantially.
-
-Stage summaries should link to source sessions rather than copying them.
+- 用户要求是否能看懂；
+- 改了什么是否清楚；
+- 命令/测试是否有结果；
+- 输出路径是否明确；
+- 下一步是否具体；
+- 敏感信息是否已脱敏；
+- 是否已经在对话里告诉用户本次做了什么。

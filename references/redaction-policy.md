@@ -1,45 +1,31 @@
-# Redaction Policy
+# 脱敏规则
 
-Load this reference before recording command output, environment details, logs, credentials-adjacent text, deployment notes, or private data.
+写进度记录前先检查是否含敏感信息。
 
-## Never Record Raw Values
+## 不要记录原文
 
-Do not write raw values for:
+- API 密钥、令牌、OAuth 密钥、Bearer 令牌；
+- 密码、cookie、会话令牌、一次性验证码；
+- 私钥、证书私有部分、钱包助记词；
+- 带账号密码的数据库 URL 或服务地址；
+- 客户隐私、个人敏感信息、私有数据样本。
 
-- API keys, access tokens, refresh tokens, OAuth secrets, and bearer tokens.
-- Passwords, passphrases, cookies, session IDs, and one-time codes.
-- Private keys, SSH keys, certificates with private material, and wallet seeds.
-- Cloud credentials, database URLs with credentials, registry tokens, and service account JSON.
-- Customer secrets, private personal identifiers, private dataset samples, and account recovery data.
+## 替代写法
 
-## Safe Alternatives
-
-| Sensitive Item | Safe Record |
+| 内容 | 写法 |
 | --- | --- |
-| API key value | Variable name and `<REDACTED_API_KEY>`. |
-| Password in command | Command shape with `<REDACTED_PASSWORD>`. |
-| Private key block | `<REDACTED_PRIVATE_KEY_BLOCK>`. |
-| Database URL with credentials | Host type, database name if safe, credential placeholder. |
-| Private absolute path | Keep when needed for local continuity; otherwise replace user names with `<USER>` or use project-relative path. |
+| API 密钥 | 变量名 + `<REDACTED_API_KEY>` |
+| 密码 | `<REDACTED_PASSWORD>` |
+| 私钥 | `<REDACTED_PRIVATE_KEY>` |
+| cookie | `<REDACTED_COOKIE>` |
+| 令牌 | `<REDACTED_TOKEN>` |
+| 私有个人信息 | `<REDACTED_PERSONAL_DATA>` |
 
-## Redaction Markers
+## 命令输出
 
-Use explicit markers so future agents know something was intentionally removed:
+- 只写命令、退出状态和摘要。
+- 报错只有对后续调试必要时才摘录。
+- 不复制完整环境变量。
+- 不把凭据藏在 URL、请求头、堆栈里。
 
-- `<REDACTED_TOKEN>`
-- `<REDACTED_PASSWORD>`
-- `<REDACTED_SECRET>`
-- `<REDACTED_PRIVATE_KEY>`
-- `<REDACTED_COOKIE>`
-- `<REDACTED_PERSONAL_DATA>`
-
-## Command Output Policy
-
-- Record command names, working directories, exit status, and concise summaries.
-- Include exact error messages when they are needed to reproduce or debug.
-- Remove secrets from stack traces, URLs, headers, and config dumps.
-- Avoid copying complete environment dumps. Record selected safe variables only.
-
-## If Safe Redaction Is Not Possible
-
-Stop writing the raw record. Ask the user for permission to write a redacted summary, or record only a minimal note that sensitive content existed and where it can be found outside the project log.
+如果无法安全脱敏，就不要写原文，只写“存在敏感内容，未记录”。

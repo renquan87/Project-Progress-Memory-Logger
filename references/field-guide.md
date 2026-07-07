@@ -1,66 +1,51 @@
-# Field Guide
+# 字段指南
 
-This reference explains what to record in each progress document. Load it when a session record is ambiguous or when choosing which sections to update.
+不知道该写什么时读这个文件。目标是短、清楚、能恢复上下文。
 
-## Required Fields For Every Session
+## 会话记录必写内容
 
-| Field | Meaning |
-| --- | --- |
-| `title` | Human-readable task title. |
-| `date` | Local timestamp with timezone. |
-| `project` | Project name or repository name. |
-| `project_root` | Absolute or project-relative root path. |
-| `operator` | Human operator or project owner when known. |
-| `ai_agent` | Agent platform, such as Codex, Claude Code, Roo, or OpenCode. |
-| `device` | Current machine alias, hostname, or role. |
-| `task_type` | Category such as `code-change`, `docs`, `experiment`, `paper`, `debugging`, `deployment`, `planning`, or `handoff`. |
-| `status` | `draft`, `completed`, `partial`, `blocked`, or `abandoned`. |
-| `branch` / `commit` | Git context when available. Use `not-a-git-repo` when unavailable. |
+普通记录只写六段：
 
-## Required Narrative Sections
+1. 用户要求；
+2. 改了什么；
+3. 命令与验证；
+4. 结果；
+5. 决策与风险；
+6. 下一步。
 
-Every normal session log should stay concise and include only:
+不要写“执行计划”“工具调用表”“时间线”“完整复盘”“完成清单”，除非用户明确要完整交接。
 
-- user request;
-- what changed;
-- commands/tests and results;
-- outputs or important paths;
-- decisions/risks if any;
-- next step.
+## 文件头元数据
 
-Use the old long handoff style only when the user explicitly asks for a full handoff, the task is unusually complex, or a future agent cannot continue safely from the concise form.
+`frontmatter` 保持机器可读：
 
-## Conditional Sections By Task Type
+- `title`：任务标题；
+- `date`：本地时间；
+- `project`：项目名；
+- `project_root`：项目根目录；
+- `operator`：用户或项目负责人；
+- `ai_agent`：AI 工具名；
+- `device`：机器别名；
+- `task_type`：任务类型；
+- `status`：`draft`、`completed`、`partial`、`blocked`、`abandoned`；
+- `branch` / `commit`：Git 信息。
 
-| Task Type | Additional Fields To Include |
-| --- | --- |
-| `code-change` | Changed files, API behavior, tests, diff summary, compatibility concerns. |
-| `docs` | Documents edited, audience, source material, unresolved factual checks. |
-| `experiment` | Dataset, split, seed, hardware, command, checkpoint, metrics, result path, failed runs. |
-| `paper` | Manuscript section, cited sources, figure/table status, reviewer or advisor feedback. |
-| `debugging` | Symptom, reproduction steps, failing command, root cause, fix, regression test. |
-| `deployment` | Target environment, config files, service names, health checks, rollback notes. |
-| `planning` | Constraints, candidate directions, decisions deferred, questions for stakeholders. |
-| `handoff` | Current state, next owner, first command to run, files to read first. |
+## 不同任务怎么写
 
-## Status Values
+- 代码：文件、行为变化、测试命令、剩余风险。
+- 文档：改了哪些文档、读者是谁、是否还有事实待核对。
+- 实验：数据、划分方式、命令、指标、输出路径、是否只是冒烟测试。
+- 调试：现象、根因、修复、验证。
+- 环境：路径、版本、安装内容、验证命令。
+- 清理：删了什么、为什么安全、释放多少空间、没删什么。
 
-- `draft`: created but not filled.
-- `completed`: task finished and record checked.
-- `partial`: useful progress, but the user task is not fully completed.
-- `blocked`: task cannot proceed until an external dependency is resolved.
-- `abandoned`: task intentionally stopped.
+## 写作规则
 
-## Writing Rules
-
-- Choose the writing language from the user's current context. For example, use Chinese for progress records when the user is working in Chinese.
-- Apply the chosen language consistently across the session log and any related `index.md`, `project_memory.md`, `decisions.md`, `todos.md`, or `environment.md` updates for the same task.
-- Translate section headings too. Do not leave English headings in a Chinese progress record unless they are machine-readable frontmatter keys or code identifiers.
-- Keep frontmatter keys, commands, paths, code identifiers, and faithful quotes in their original form when translation would reduce accuracy or machine readability.
-- Preserve concrete paths, filenames, commands, metrics, and decision context.
-- Summarize large outputs instead of copying logs wholesale.
-- Keep routine implementation details in the session log and durable facts in `project_memory.md`.
-- Put long-term work items in `todos.md`.
-- Put decisions that affect future direction in `decisions.md`.
-- Put machine-specific facts in `environment.md`.
-- Do not update `project_memory.md`, `decisions.md`, `todos.md`, or `environment.md` just to show activity. Update them only when durable facts changed.
+- 用户中文时，标题和正文都用中文。
+- 命令、路径、文件名、代码标识符保留原样。
+- 长输出只摘要，不复制。
+- `project_memory.md` 只放长期事实。
+- `decisions.md` 只放影响后续方向的决定。
+- `todos.md` 只放跨会话待办。
+- `environment.md` 只放环境、路径、权重、数据集等机器事实。
+- 不要为了“显得完整”更新所有文件。
